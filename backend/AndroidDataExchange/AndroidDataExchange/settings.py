@@ -125,6 +125,9 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'south',
     'PostTest',
+    'tastypie',
+    'gcm',
+    'testgcmserver',
 )
 
 # A sample logging configuration. The only tangible logging

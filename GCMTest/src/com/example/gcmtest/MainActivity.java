@@ -64,9 +64,11 @@ public class MainActivity extends Activity {
 		if (checkPlayServices()) {
 			gcm = GoogleCloudMessaging.getInstance(this);
 			regid = getRegistrationId(context);
+			Log.v("regid", regid);
 
 			if (regid.isEmpty()) {
 				registerInBackground();
+				Log.v("regid2", regid);
 			}
 		} else {
 			Log.i(TAG, "No valid Google Play Services APK found.");
@@ -93,6 +95,7 @@ public class MainActivity extends Activity {
 	 * Google Play Store or enable it in the device's system settings.
 	 */
 	private boolean checkPlayServices() {
+		Log.v("checkPlayservices", "1");
 		int resultCode = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(this);
 		if (resultCode != ConnectionResult.SUCCESS) {
@@ -187,6 +190,8 @@ public class MainActivity extends Activity {
 
 					// Persist the regID - no need to register again.
 					storeRegistrationId(context, regid);
+					
+					Log.v("regid_stored", regid);
 				} catch (IOException ex) {
 					msg = "Error :" + ex.getMessage();
 					// If there is an error, don't just keep trying to register.
