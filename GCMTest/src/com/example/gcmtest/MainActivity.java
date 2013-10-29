@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 	 * Substitute you own sender ID here. This is the project number you got
 	 * from the API Console, as described in "Getting Started."
 	 */
-	String SENDER_ID = "694968109686";
+	String SENDER_ID = "134418279808";
 
 	/**
 	 * Tag used on log messages.

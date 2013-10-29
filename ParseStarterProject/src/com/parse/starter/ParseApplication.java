@@ -2,7 +2,9 @@ package com.parse.starter;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.PushService;
 import com.parse.SaveCallback;
 
 import com.parse.ParseUser;
@@ -28,27 +30,10 @@ public class ParseApplication extends Application {
 		defaultACL.setPublicReadAccess(true);
 
 		ParseACL.setDefaultACL(defaultACL, true);
-
-		ParseObject testObject = new ParseObject("TestObject2");
-		testObject.put("foo2", "bar2");
-		testObject.saveInBackground(new SaveCallback() {
-			
-			@Override
-			public void done(com.parse.ParseException e) {
-				if (e == null) {
-					Toast toast = Toast.makeText(getApplicationContext(),
-							"Success", Toast.LENGTH_SHORT);
-					toast.show();
-				} else {
-					e.printStackTrace();
-
-					Toast toast = Toast.makeText(getApplicationContext(),
-							"Failed", Toast.LENGTH_SHORT);
-					toast.show();
-				}	
-			}
-
-		});
+		
+		//Set callback activity on receiving a push.
+		PushService.setDefaultPushCallback(this, PushCallbackActivity.class);
+		ParseInstallation.getCurrentInstallation().saveInBackground();
 	}
 
 }
