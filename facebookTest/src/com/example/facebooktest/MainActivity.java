@@ -1,49 +1,28 @@
 package com.example.facebooktest;
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.widget.TextView;
-import com.facebook.*;
-import com.facebook.model.*;
+import android.support.v4.app.FragmentActivity;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+	private MainFragment mainFragment;
 
-    // start Facebook Login
-    Session.openActiveSession(this, true, new Session.StatusCallback() {
-
-      // callback when session changes state
-      @SuppressWarnings("deprecation")
+	
 	@Override
-      public void call(Session session, SessionState state, Exception exception) {
-        if (session.isOpened()) {
+	public void onCreate(Bundle savedInstanceState) {
+	    super.onCreate(savedInstanceState);
 
-          // make request to the /me API
-          Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
-
-            // callback after Graph API response with user object
-            @Override
-            public void onCompleted(GraphUser user, Response response) {
-              if (user != null) {
-                TextView welcome = (TextView) findViewById(R.id.welcome);
-                welcome.setText("Hello " + user.getName() + "!");
-              }
-            }
-          });
-        }
-      }
-    });
-  }
-
-  @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-      super.onActivityResult(requestCode, resultCode, data);
-      Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
-  }
-
+	    if (savedInstanceState == null) {
+	        // Add the fragment on initial activity setup
+	        mainFragment = new MainFragment();
+	        getSupportFragmentManager()
+	        .beginTransaction()
+	        .add(android.R.id.content, mainFragment)
+	        .commit();
+	    } else {
+	        // Or set the fragment from restored state info
+	        mainFragment = (MainFragment) getSupportFragmentManager()
+	        .findFragmentById(android.R.id.content);
+	    }
+	}	
 }
